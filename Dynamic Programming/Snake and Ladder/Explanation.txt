@@ -1,0 +1,40 @@
+1. It starts by creating an integer array called `board` of size 31 (from 0 to 30), which represents the board. 
+All elements of the `board` array are initialized with -1 using `Arrays.fill(board, -1)`.
+
+2. The code then loops through the input array `arr` in increments of 2. 
+For each pair of elements in `arr`, it updates the corresponding position on the board with the effect of the special cell. 
+The position is obtained from `arr[i]` and the effect is obtained from `arr[i+1]`. This is done by assigning `board[arr[i]] = arr[i+1]`.
+
+3. After initializing the board, the code sets up a queue (`LinkedList<Integer> queue`) to store the cells to be visited.
+
+4. The code offers cell 1 (the starting point) to the queue using `queue.offer(1)`.
+
+5. A boolean array `visited` is created to keep track of the cells that have been visited. Initially, all elements of `visited` are set to `false`.
+
+6. An integer variable `move` is initialized to 0, which represents the number of dice throws made to reach the current cell.
+
+7. The code enters a loop that continues until the queue is empty. This loop will perform a breadth-first search (BFS) traversal of the board.
+
+8. Inside the loop, the code gets the number of elements in the queue (`qsize`) using `queue.size()`.
+
+9. It then loops through all the elements in the queue. For each element, it performs the following steps:
+
+   - It retrieves the next cell from the queue using `int num = queue.poll()`.
+   - If the cell has already been visited (`visited[num]` is `true`), it skips the current iteration of the loop.
+   - Otherwise, it marks the cell as visited by setting `visited[num]` to `true`.
+   - It checks if the current cell is cell 30, which is the destination. 
+     If it is, the function returns the current value of `move`, which represents the minimum number of dice throws required to reach cell 30.
+   - If the current cell is not the destination, the code proceeds to the next steps.
+
+10. The code then loops through all possible dice throws (from 1 to 6). For each possible throw, it calculates the next cell by 
+adding the throw value to the current cell (`int next = num + i`).
+
+11. If the next cell has a special value in the `board` array (i.e., `board[next]` is not -1), it means the player will be affected by a special cell. 
+The code updates `next` to the value stored in `board[next]` to reflect the effect of the special cell.
+
+12. If the next cell has not been visited (`!visited[next]`), it means the player can move to that cell. 
+In this case, the code offers the next cell to the queue using `queue.offer(next)`.
+
+13. After processing all possible dice throws for the current cell, the loop increments the `move` variable to represent the next dice throw.
+
+14. The code repeats steps 8 to 13 until all cells have been visited or until the
